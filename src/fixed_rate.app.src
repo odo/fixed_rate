@@ -1,0 +1,12 @@
+{application, fixed_rate,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { fixed_rate_app, []}},
+  {env, []}
+ ]}.
