@@ -8,10 +8,10 @@ run(Fun, Args, Rate) ->
 run(Fun, ArgsList, Rate, CheckEvery) ->
     TimePerMsg = 1.0 / Rate * 1000000.0, %micros
     {_, _, N, StartTime, _, Results} =
-    lists:foldr(fun run_and_wait/2, {Fun, TimePerMsg, 0, os:timestamp(), CheckEvery, []}, ArgsList),
+    lists:foldl(fun run_and_wait/2, {Fun, TimePerMsg, 0, os:timestamp(), CheckEvery, []}, ArgsList),
     Elapsed    = timer:now_diff(os:timestamp(), StartTime) / 1000000.0,
     RateActual = N / Elapsed,
-    io:format("~p samples took ~p s.\nRate: ~p\n", [N, Elapsed, RateActual]),
+    io:format("~p samples took ~p s.\nRate: ~p ops\n", [N, Elapsed, RateActual]),
     {RateActual, Results}.
 
 run_and_wait(Args, {Fun, TimePerMsg, N, StartTime, CheckEvery, Acc}) when is_list(Args) ->

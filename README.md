@@ -22,22 +22,22 @@ Call `run(Fun, Args, Rate)` with a target rate (ops/Hz).
 ```
 1> Fun = fun(E) -> io:format("~p\n", [E]), E end.
 #Fun<erl_eval.6.17052888>
-2> Args = lists:seq(1, 10).
-[1,2,3,4,5,6,7,8,9,10]
-3> fixed_rate:run(Fun, Args, 100).
-10
-9
-8
-7
-6
-5
-4
-3
-2
+2> Args = [[E]||E<-lists:seq(1, 10)].
+[[1],[2],[3],[4],[5],[6],[7],"\b","\t","\n"]
+3>  fixed_rate:run(Fun, Args, 100).
 1
-10 samples took 0.10123 s.
-Rate: 98.78494517435543
-{98.78494517435543,[1,2,3,4,5,6,7,8,9,10]}
+2
+3
+4
+5
+6
+7
+8
+9
+10
+10 samples took 0.101123 s.
+Rate: 98.88947123799728 ops
+{98.88947123799728,[10,9,8,7,6,5,4,3,2,1]}
 ```
 
 By default it will wait after every single call. If that seems too wasteful you can provide an extra argument specifying the number of calls which are executed as fast as possible before waiting.
